@@ -1,0 +1,38 @@
+{
+ "status": {
+  "type": "SUCCESS",
+  "code": "<redacted>",
+  "message": "Success",
+  "textId": "",
+  "context": "Account"
+ },
+ "body": {
+  "activeContracts": [
+   {
+    "contractId": "1000002",
+    "meterId": "CH0000000000000000000000000000000",
+    "supplyStartDate": "2021-08-01",
+    "supplyEndDate": "9999-12-31",
+    "contractDescription": "Musterwohnung",
+    "deliveryType": "consumption",
+    "product": "CKW ClassicStrom E",
+    "premiseId": "1000003",
+    "contractAccountId": "1000004",
+    "tariffType": "B1D-C-----",
+    "energyProduct": "classic",
+    "gridProduct": "gridE",
+    "id": "BASIC-CH0000000000000000000000000000000",
+    "label": "Musterstrasse 1 , 6000 Luzern",
+    "secondaryLabel": "Musterwohnung",
+    "locationId": "1000001",
+    "energyTrackerAvailable": true,
+    "locationWithMultipleContracts": false,
+    "activeMeterGroupType": "BASIC",
+    "selectionScope": "group",
+    "isFeedIn": false,
+    "isProduction": false
+   }
+  ],
+  "expiredContracts": []
+ }
+}

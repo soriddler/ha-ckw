@@ -1,0 +1,89 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connexion CKW",
+        "description": "Connectez-vous avec votre compte my.ckw.ch. CKW vous enverra un code par SMS à l'étape suivante.",
+        "data": {
+          "username": "E-mail / nom d'utilisateur",
+          "password": "Mot de passe"
+        }
+      },
+      "code": {
+        "title": "Code SMS",
+        "description": "Saisissez le code du SMS le plus récent. Cochez « Envoyer un nouveau code » et validez pour recevoir un nouveau SMS (les codes précédents deviennent invalides). Renvoyé : {resent}.",
+        "data": {
+          "code": "Code SMS",
+          "resend": "Envoyer un nouveau code"
+        }
+      },
+      "contract": {
+        "title": "Choisir un contrat",
+        "data": {
+          "location_id": "Contrat"
+        }
+      },
+      "history": {
+        "title": "Charger l'historique",
+        "description": "Quelle quantité de données le premier import doit-il charger ? Il s'exécute en arrière-plan et les capteurs restent indisponibles jusqu'à sa fin. Les durées sont des estimations. Il est possible d'en charger davantage plus tard avec l'action CKW : Importer l'historique.",
+        "data": {
+          "history_months": "Étendue"
+        }
+      },
+      "reauth_confirm": {
+        "title": "CKW nécessite une nouvelle connexion",
+        "description": "La connexion enregistrée pour {username} a expiré. Confirmez votre mot de passe ; CKW enverra un nouveau code SMS.",
+        "data": {
+          "password": "Mot de passe"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Nom d'utilisateur ou mot de passe incorrect.",
+      "invalid_code": "Le code SMS n'a pas été accepté. Utilisez le code du SMS le plus récent.",
+      "code_required": "Saisissez le code SMS ou cochez « Envoyer un nouveau code ».",
+      "cannot_connect": "CKW est injoignable. Réessayez plus tard.",
+      "login_failed": "La page de connexion CKW diffère de ce qui était attendu. Voir le journal."
+    },
+    "abort": {
+      "already_configured": "Ce contrat est déjà configuré.",
+      "reauth_successful": "Connexion renouvelée.",
+      "no_contracts": "Aucun contrat d'électricité utilisable trouvé pour ce compte.",
+      "cannot_connect": "CKW est injoignable. Réessayez plus tard."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "day_energy": {
+        "name": "Consommation (dernier jour)"
+      },
+      "day_peak": {
+        "name": "Puissance de pointe (dernier jour)"
+      },
+      "day_cost": {
+        "name": "Coût de l'énergie (dernier jour)"
+      },
+      "month_peak": {
+        "name": "Puissance de pointe (mois)"
+      },
+      "month_power_charge": {
+        "name": "Prix de la puissance (mois)"
+      },
+      "last_data": {
+        "name": "Dernières données"
+      }
+    }
+  },
+  "services": {
+    "import_history": {
+      "name": "Importer l'historique",
+      "description": "Supprime les statistiques CKW importées et réimporte tout à partir de la date indiquée. S'exécute en arrière-plan et peut prendre plusieurs minutes. Permet de charger des données plus anciennes.",
+      "fields": {
+        "start_date": {
+          "name": "Date de début",
+          "description": "Premier jour à importer. Par défaut : début de votre contrat de fourniture."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,206 @@
+const kcContext = {
+    "auth": {
+        "showResetCredentials": false,
+        "authenticationSelections": [
+            {
+                "helpText": "auth-username-password-form-custom-help-text",
+                "displayName": "auth-username-password-form-custom-display-name",
+                "iconCssClass": "kcAuthenticatorDefaultClass",
+                "authExecId": "16afdd1b-a668-460e-ae69-9efb07c32737",
+                "authenticationExecution": {
+                    "authenticatorFlow": false,
+                    "conditional": false,
+                    "required": true,
+                    "enabled": true,
+                    "disabled": false,
+                    "id": "16afdd1b-a668-460e-ae69-9efb07c32737",
+                    "parentFlow": "53cb5c6f-9ff4-4750-b465-bce6b8ec1ee4",
+                    "authenticator": "auth-username-password-form-custom",
+                    "alternative": false,
+                    "requirement": {
+                        "stableIndex": 0,
+                    },
+                    "priority": 0,
+                },
+            },
+        ],
+        "showUsername": false,
+        "showTryAnotherWayLink": false,
+        /*auth.attemptedUsername excluded*/
+    },
+    "title": "MyCKW Login",
+    "locale": {
+        "rtl": false,
+        "current": "English",
+        "supported": [
+            {
+                "languageTag": "en",
+                "label": "English",
+                "url": "\/realms/CKW-prod/login-actions/authenticate?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA&execution=16afdd1b-a668-460e-ae69-9efb07c32737&kc_locale=en",
+            },
+            {
+                "languageTag": "de",
+                "label": "German (Deutsch)",
+                "url": "\/realms/CKW-prod/login-actions/authenticate?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA&execution=16afdd1b-a668-460e-ae69-9efb07c32737&kc_locale=de",
+            },
+        ],
+        "currentLanguageTag": "en",
+    },
+    "login": {
+        "username": "<email>",
+    },
+    "authenticationSession": {
+        "tabId": "TAB_ID",
+        "authSessionId": "X",
+        "authSessionIdHash": "X",
+    },
+    "client": {
+        "clientId": "dtp-web",
+        "description": "Public client for the myCKW customer web portal (login and SMS MFA with dtp-theme).",
+        "baseUrl": "https://my.ckw.ch",
+        "name": "myCKW",
+        "attributes": {
+            "client.secret.creation.time": "1779431441",
+            "oauth2.jwt.authorization.grant.enabled": "false",
+            "standard.token.exchange.enabled": "false",
+            "login_theme": "dtp-theme",
+            "oauth2.device.authorization.grant.enabled": "false",
+            "backchannel.logout.revoke.offline.tokens": "false",
+            "use.refresh.tokens": "true",
+            "exclude.session.state.from.auth.response": "false",
+            "realm_client": "false",
+            "oidc.ciba.grant.enabled": "false",
+            "exclude.issuer.from.auth.response": "false",
+            "backchannel.logout.session.required": "true",
+            "client_credentials.use_refresh_token": "false",
+            "display.on.consent.screen": "false",
+            "dpop.bound.access.tokens": "false",
+        },
+    },
+    "passwordPolicies": {
+        "notEmail": false,
+        "length": 12,
+        "notUsername": true,
+        "specialChars": 1,
+        "digits": 1,
+        "maxLength": 64,
+    },
+    "scripts": [
+    ],
+    "lang": "en",
+    "social": {
+        "baseURI": {
+            "path": "\/",
+            "rawPath": "\/",
+            "rawSchemeSpecificPart": "\/?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA&session_code=SESSION_CODE",
+            "opaque": false,
+            "query": "client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA&session_code=SESSION_CODE",
+            "schemeSpecificPart": "\/?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA&session_code=SESSION_CODE",
+            "port": -1,
+            "absolute": false,
+            "rawQuery": "client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA&session_code=SESSION_CODE",
+        },
+        "providers": [
+            {
+                "displayName": "Apple",
+                "providerId": "oidc",
+                "loginUrl": "\/realms/CKW-prod/broker/apple/login?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA&session_code=SESSION_CODE",
+                "iconClasses": "",
+                "alias": "apple",
+                "themeConfig": {
+                },
+            },
+            {
+                "displayName": "Google",
+                "providerId": "google",
+                "loginUrl": "\/realms/CKW-prod/broker/google/login?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA&session_code=SESSION_CODE",
+                "iconClasses": "fa fa-google",
+                "alias": "google",
+                "themeConfig": {
+                },
+            },
+        ],
+    },
+    "message": {
+        "summary": "Invalid username or password.",
+        "type": "error",
+        "error": true,
+        "success": false,
+        "warning": false,
+    },
+    "pageId": "login",
+    "url": {
+        "oauthAction": "\/realms/CKW-prod/login-actions/authenticate",
+        "resourcesPath": "\/resources/le285/login/dtp-theme",
+        "loginAction": "https://id.ckw.ch/realms/CKW-prod/login-actions/authenticate?session_code=SESSION_CODE&execution=16afdd1b-a668-460e-ae69-9efb07c32737&client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA",
+        "loginUrl": "\/realms/CKW-prod/login-actions/authenticate?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA",
+        "resourcesCommonPath": "\/resources/le285/common/keycloak",
+        "firstBrokerLoginUrl": "\/realms/CKW-prod/login-actions/first-broker-login?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA",
+        "registrationUrl": "\/realms/CKW-prod/login-actions/registration?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA",
+        "logoutConfirmAction": "\/realms/CKW-prod/protocol/openid-connect/logout/logout-confirm?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA",
+        "registrationAction": "https://id.ckw.ch/realms/CKW-prod/login-actions/authenticate?session_code=SESSION_CODE&execution=16afdd1b-a668-460e-ae69-9efb07c32737&client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA",
+        "loginResetCredentialsUrl": "\/realms/CKW-prod/login-actions/reset-credentials?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA",
+        "ssoLoginInOtherTabsUrl": "\/realms/CKW-prod/login-actions/restart?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA&skip_logout=true",
+        "resourcesUrl": "\/resources/le285?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA/login/dtp-theme",
+        "loginRestartFlowUrl": "\/realms/CKW-prod/login-actions/restart?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA&skip_logout=false",
+        "resourcesCommonUrl": "\/resources/le285?client_id=dtp-web&tab_id=TAB_ID&client_data=CLIENT_DATA/common/keycloak",
+        "oauth2DeviceVerificationAction": "\/realms/CKW-prod/login-actions/authenticate",
+    },
+    "themeResources": {
+        "stylesCommon": [
+            {
+                "path": "vendor/patternfly-v4/patternfly.min.css",
+            },
+            {
+                "path": "vendor/patternfly-v3/css/patternfly.min.css",
+            },
+            {
+                "path": "vendor/patternfly-v3/css/patternfly-additions.min.css",
+            },
+            {
+                "path": "lib/pficon/pficon.css",
+            },
+        ],
+        "favicons": [
+        ],
+        "styles": [
+            {
+                "path": "css/login.css",
+            },
+        ],
+        "scripts": [
+        ],
+    },
+    "messagesPerField": {
+        "get": function (fieldName) { if(fieldName === 'firstName'){ return ''; } if(fieldName === 'lastName'){ return ''; } if(fieldName === 'email'){ return ''; } if(fieldName === 'username' || fieldName === 'password' ){ return kcContext.message && kcContext.message.summary ? kcContext.message.summary : 'error'; } if(fieldName === 'password-confirm'){ return ''; } if(fieldName === 'global'){ return ''; } if(fieldName === 'totp'){ return ''; } if(fieldName === 'userLabel'){ return ''; } if(fieldName === 'recoveryCodeInput'){ return ''; } if(fieldName === 'termsAccepted'){ return ''; } },
+        "existsError": function (fieldName) { if(fieldName === 'firstName' ){ return false; }if(fieldName === 'lastName' ){ return false; }if(fieldName === 'email' ){ return false; }if(fieldName === 'username' || fieldName === 'password' ){ return true; } if(fieldName === 'password-confirm' ){ return false; }if(fieldName === 'global' ){ return false; }if(fieldName === 'totp' ){ return false; }if(fieldName === 'userLabel' ){ return false; }if(fieldName === 'recoveryCodeInput' ){ return false; }if(fieldName === 'termsAccepted' ){ return false; }},
+    },
+    "templateName": "login.ftl",
+    "realm": {
+        "displayName": "CKW Prod",
+        "registrationAllowed": true,
+        "displayNameHtml": "<b>CKW<\/b>",
+        "resetPasswordAllowed": true,
+        "resetCredentialsActionTokenLifespanMinutes": 30,
+        "password": true,
+        "actionTokenGeneratedByUserLifespanMinutes": 30,
+        "internationalizationEnabled": true,
+        "idpVerifyAccountLinkActionTokenLifespanMinutes": 30,
+        "verifyEmailActionTokenLifespanMinutes": 30,
+        "loginWithEmailAllowed": true,
+        "duplicateEmailsAllowed": false,
+        "editUsernameAllowed": true,
+        "name": "CKW-prod",
+        "rememberMe": false,
+        "registrationEmailAsUsername": true,
+        "identityFederationEnabled": true,
+    },
+    "darkMode": false,
+    "properties": {
+        "parent": "keycloak",
+        "styles": "css/login.css",
+        "stylesCommon": "vendor/patternfly-v4/patternfly.min.css vendor/patternfly-v3/css/patternfly.min.css vendor/patternfly-v3/css/patternfly-additions.min.css lib/pficon/pficon.css",
+        "KEYCLOAKIFY_SPA_DEV_SERVER_PORT": "",
+        "abstract": "true",
+    },
+};

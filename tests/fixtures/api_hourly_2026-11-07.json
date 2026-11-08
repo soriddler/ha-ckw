@@ -1,0 +1,250 @@
+{
+ "status": {
+  "type": "SUCCESS",
+  "code": "<redacted>",
+  "message": "Success",
+  "textId": "",
+  "context": "Measurement"
+ },
+ "body": {
+  "type": "consumption",
+  "sumEnergy": "4.61",
+  "averageConsumption": "0.19",
+  "amountTotalEnergy": "1.28",
+  "amountTotalMaxPower": "2.73",
+  "amountTotalSum": "4.01",
+  "maxPowerAvailable": true,
+  "isMultiContractLocation": false,
+  "reactivePowerAvailable": false,
+  "dynamicTariffAvailable": false,
+  "amountAvailable": true,
+  "energyForecastAvailable": false,
+  "forecastAvailable": false,
+  "maxPowerPerMonth": [
+   {
+    "timestamp": "2026-11-07T20:15",
+    "maxPower": "1.68",
+    "amount": "2.73"
+   }
+  ],
+  "measurements": [
+   {
+    "timestampStartOfPeriod": "2026-11-07T00:00",
+    "energy": "0.11",
+    "maxPower": "0.16",
+    "amount": {
+     "energy": "0.03",
+     "total": "0.03"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T01:00",
+    "energy": "0.10",
+    "maxPower": "0.13",
+    "amount": {
+     "energy": "0.03",
+     "total": "0.03"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T02:00",
+    "energy": "0.12",
+    "maxPower": "0.15",
+    "amount": {
+     "energy": "0.04",
+     "total": "0.04"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T03:00",
+    "energy": "0.11",
+    "maxPower": "0.15",
+    "amount": {
+     "energy": "0.04",
+     "total": "0.04"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T04:00",
+    "energy": "0.09",
+    "maxPower": "0.10",
+    "amount": {
+     "energy": "0.03",
+     "total": "0.03"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T05:00",
+    "energy": "0.12",
+    "maxPower": "0.16",
+    "amount": {
+     "energy": "0.04",
+     "total": "0.04"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T06:00",
+    "energy": "0.12",
+    "maxPower": "0.16",
+    "amount": {
+     "energy": "0.04",
+     "total": "0.04"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T07:00",
+    "energy": "0.12",
+    "maxPower": "0.20",
+    "amount": {
+     "energy": "0.04",
+     "total": "0.04"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T08:00",
+    "energy": "0.18",
+    "maxPower": "0.30",
+    "amount": {
+     "energy": "0.05",
+     "total": "0.05"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T09:00",
+    "energy": "0.16",
+    "maxPower": "0.20",
+    "amount": {
+     "energy": "0.05",
+     "total": "0.05"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T10:00",
+    "energy": "0.14",
+    "maxPower": "0.18",
+    "amount": {
+     "energy": "0.04",
+     "total": "0.04"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T11:00",
+    "energy": "0.11",
+    "maxPower": "0.12",
+    "amount": {
+     "energy": "0.03",
+     "total": "0.03"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T12:00",
+    "energy": "0.12",
+    "maxPower": "0.15",
+    "amount": {
+     "energy": "0.04",
+     "total": "0.04"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T13:00",
+    "energy": "0.15",
+    "maxPower": "0.20",
+    "amount": {
+     "energy": "0.04",
+     "total": "0.04"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T14:00",
+    "energy": "0.16",
+    "maxPower": "0.20",
+    "amount": {
+     "energy": "0.05",
+     "total": "0.05"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T15:00",
+    "energy": "0.15",
+    "maxPower": "0.17",
+    "amount": {
+     "energy": "0.04",
+     "total": "0.04"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T16:00",
+    "energy": "0.16",
+    "maxPower": "0.20",
+    "amount": {
+     "energy": "0.05",
+     "total": "0.05"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T17:00",
+    "energy": "0.16",
+    "maxPower": "0.20",
+    "amount": {
+     "energy": "0.05",
+     "total": "0.05"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T18:00",
+    "energy": "0.33",
+    "maxPower": "0.72",
+    "amount": {
+     "energy": "0.09",
+     "total": "0.09"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T19:00",
+    "energy": "0.20",
+    "maxPower": "0.28",
+    "amount": {
+     "energy": "0.05",
+     "total": "0.05"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T20:00",
+    "energy": "0.85",
+    "maxPower": "1.68",
+    "amount": {
+     "energy": "0.21",
+     "maxPower": "2.73",
+     "total": "2.94"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T21:00",
+    "energy": "0.60",
+    "maxPower": "1.56",
+    "amount": {
+     "energy": "0.15",
+     "total": "0.15"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T22:00",
+    "energy": "0.17",
+    "maxPower": "0.21",
+    "amount": {
+     "energy": "0.05",
+     "total": "0.05"
+    }
+   },
+   {
+    "timestampStartOfPeriod": "2026-11-07T23:00",
+    "energy": "0.10",
+    "maxPower": "0.14",
+    "amount": {
+     "energy": "0.03",
+     "total": "0.03"
+    }
+   }
+  ]
+ }
+}

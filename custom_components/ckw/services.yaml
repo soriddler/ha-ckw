@@ -1,0 +1,7 @@
+import_history:
+  fields:
+    start_date:
+      required: false
+      example: "2021-08-01"
+      selector:
+        date:

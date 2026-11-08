@@ -1,0 +1,24 @@
+{
+ "status": {
+  "type": "SUCCESS",
+  "code": "<redacted>",
+  "message": "Success",
+  "textId": "",
+  "context": "Account"
+ },
+ "body": {
+  "dynamicTariffPromotion": false,
+  "accounts": [
+   {
+    "gpnr": "Example",
+    "name": "Example",
+    "address": {
+     "postalCode": "6000",
+     "streetAddress": "Musterstrasse 1",
+     "city": "Luzern"
+    },
+    "mainAccount": true
+   }
+  ]
+ }
+}

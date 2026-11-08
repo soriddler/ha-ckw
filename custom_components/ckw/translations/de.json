@@ -1,0 +1,89 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "CKW-Anmeldung",
+        "description": "Melde dich mit deinem my.ckw.ch-Konto an. CKW schickt dir im nächsten Schritt einen SMS-Code.",
+        "data": {
+          "username": "E-Mail / Benutzername",
+          "password": "Passwort"
+        }
+      },
+      "code": {
+        "title": "SMS-Code",
+        "description": "Gib den Code aus der neuesten SMS ein. Mit «Neuen Code senden» und Absenden kommt eine neue SMS (frühere Codes werden ungültig). Erneut gesendet: {resent}.",
+        "data": {
+          "code": "SMS-Code",
+          "resend": "Neuen Code senden"
+        }
+      },
+      "contract": {
+        "title": "Vertrag wählen",
+        "data": {
+          "location_id": "Vertrag"
+        }
+      },
+      "reauth_confirm": {
+        "title": "CKW braucht eine neue Anmeldung",
+        "description": "Die gespeicherte Anmeldung für {username} ist abgelaufen. Bestätige dein Passwort; CKW sendet einen neuen SMS-Code.",
+        "data": {
+          "password": "Passwort"
+        }
+      },
+      "history": {
+        "title": "Verlauf laden",
+        "description": "Wie viele Daten sollen beim ersten Import geladen werden? Der Import läuft im Hintergrund, die Sensoren sind bis dahin nicht verfügbar. Die Dauer ist eine Schätzung. Später lässt sich mehr nachladen mit der Aktion CKW: Verlauf importieren.",
+        "data": {
+          "history_months": "Umfang"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Benutzername oder Passwort ist falsch.",
+      "invalid_code": "Der SMS-Code wurde nicht akzeptiert. Verwende den Code der neuesten SMS.",
+      "code_required": "SMS-Code eingeben oder «Neuen Code senden» ankreuzen.",
+      "cannot_connect": "CKW ist nicht erreichbar. Später erneut versuchen.",
+      "login_failed": "Die CKW-Anmeldeseite sieht anders aus als erwartet. Siehe Log."
+    },
+    "abort": {
+      "already_configured": "Dieser Vertrag ist bereits eingerichtet.",
+      "reauth_successful": "Anmeldung erneuert.",
+      "no_contracts": "Kein passender Stromvertrag gefunden.",
+      "cannot_connect": "CKW ist nicht erreichbar. Später erneut versuchen."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "day_energy": {
+        "name": "Verbrauch (letzter Tag)"
+      },
+      "day_peak": {
+        "name": "Spitzenleistung (letzter Tag)"
+      },
+      "day_cost": {
+        "name": "Energiekosten (letzter Tag)"
+      },
+      "month_peak": {
+        "name": "Spitzenleistung (Monat)"
+      },
+      "month_power_charge": {
+        "name": "Leistungspreis (Monat)"
+      },
+      "last_data": {
+        "name": "Letzte Daten"
+      }
+    }
+  },
+  "services": {
+    "import_history": {
+      "name": "Verlauf importieren",
+      "description": "Löscht die importierten CKW-Statistiken und importiert alles neu ab dem angegebenen Datum. Läuft im Hintergrund und kann einige Minuten dauern. Damit lassen sich ältere Daten nachladen.",
+      "fields": {
+        "start_date": {
+          "name": "Startdatum",
+          "description": "Erster zu importierender Tag. Standard: Beginn deines Liefervertrags."
+        }
+      }
+    }
+  }
+}

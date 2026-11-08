@@ -1,0 +1,89 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "CKW login",
+        "description": "Log in with your my.ckw.ch account. CKW will send you an SMS code in the next step.",
+        "data": {
+          "username": "E-mail / user name",
+          "password": "Password"
+        }
+      },
+      "code": {
+        "title": "SMS code",
+        "description": "Enter the code from the most recent SMS. Tick \"Send new code\" and submit to get a new SMS (this makes all earlier codes invalid). Resent: {resent}.",
+        "data": {
+          "code": "SMS code",
+          "resend": "Send new code"
+        }
+      },
+      "contract": {
+        "title": "Choose a contract",
+        "data": {
+          "location_id": "Contract"
+        }
+      },
+      "reauth_confirm": {
+        "title": "CKW needs a new login",
+        "description": "The saved login for {username} expired. Confirm your password; CKW will send a new SMS code.",
+        "data": {
+          "password": "Password"
+        }
+      },
+      "history": {
+        "title": "Load history",
+        "description": "How much data should the first import load? It runs in the background and the sensors stay unavailable until it is done. Durations are estimates. More can be loaded later with the action CKW: Import history.",
+        "data": {
+          "history_months": "Amount"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "User name or password is wrong.",
+      "invalid_code": "That SMS code was not accepted. Use the code from the most recent SMS.",
+      "code_required": "Enter the SMS code, or tick \"Send new code\".",
+      "cannot_connect": "Cannot reach CKW. Try again later.",
+      "login_failed": "The CKW login page looked different than expected. See the log."
+    },
+    "abort": {
+      "already_configured": "This contract is already set up.",
+      "reauth_successful": "Login renewed.",
+      "no_contracts": "No usable electricity contract found for this account.",
+      "cannot_connect": "Cannot reach CKW. Try again later."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "day_energy": {
+        "name": "Consumption (latest day)"
+      },
+      "day_peak": {
+        "name": "Peak power (latest day)"
+      },
+      "day_cost": {
+        "name": "Energy cost (latest day)"
+      },
+      "month_peak": {
+        "name": "Peak power (this month)"
+      },
+      "month_power_charge": {
+        "name": "Power charge (this month)"
+      },
+      "last_data": {
+        "name": "Last data"
+      }
+    }
+  },
+  "services": {
+    "import_history": {
+      "name": "Import history",
+      "description": "Deletes the imported CKW statistics and imports everything again, starting at the given date. Runs in the background and can take several minutes. Use it to add older data than what was imported at setup.",
+      "fields": {
+        "start_date": {
+          "name": "Start date",
+          "description": "First day to import. Default: the start of your supply contract."
+        }
+      }
+    }
+  }
+}
