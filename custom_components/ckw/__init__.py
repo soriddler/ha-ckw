@@ -1,6 +1,7 @@
 """CKW (Centralschweizerische Kraftwerke) smart-meter data for Home Assistant."""
 from __future__ import annotations
 
+import time
 from datetime import date, datetime
 
 import voluptuous as vol
@@ -11,7 +12,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.event import async_track_time_change
 
 from .ckw_client import CkwClient, TokenManager
-from .const import CONF_REFRESH_TOKEN, DOMAIN, UPDATE_HOUR, UPDATE_MINUTE
+from .const import CONF_REFRESH_TOKEN, CONF_REFRESHED_AT, DOMAIN, UPDATE_HOUR, UPDATE_MINUTE
 from .coordinator import CkwCoordinator
 
 PLATFORMS = ["sensor"]
@@ -45,9 +46,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: CkwConfigEntry) -> bool:
 
     async def persist_refresh_token(token: str) -> None:
         # the refresh token rotates on every use: store the new one before anything else
-        hass.config_entries.async_update_entry(entry, data={**entry.data, CONF_REFRESH_TOKEN: token})
+        hass.config_entries.async_update_entry(
+            entry, data={**entry.data, CONF_REFRESH_TOKEN: token, CONF_REFRESHED_AT: time.time()}
+        )
 
-    tokens = TokenManager(session, entry.data[CONF_REFRESH_TOKEN], persist_refresh_token)
+    tokens = TokenManager(
+        session, entry.data[CONF_REFRESH_TOKEN], persist_refresh_token, last_refresh=entry.data.get(CONF_REFRESHED_AT)
+    )
     coordinator = CkwCoordinator(hass, entry, CkwClient(session, tokens))
     entry.runtime_data = coordinator
     if await coordinator.has_history():

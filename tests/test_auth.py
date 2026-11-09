@@ -53,7 +53,7 @@ async def test_full_login_happy_path(session, fx):
 
         auth_url = next(u for (me, u) in m.requests if me == "GET")
         q = parse_qs(urlsplit(str(auth_url)).query)
-        assert q["scope"] == ["openid offline_access"] and q["code_challenge_method"] == ["S256"]
+        assert q["scope"] == ["openid"] and q["code_challenge_method"] == ["S256"]
         post = calls(m, "POST", ACTION_RE)
         assert post[0].kwargs["data"] == {"username": "user@example.org", "password": "pw", "credentialId": ""}
         assert post[1].kwargs["data"] == {"code": "123456"}  # whitespace stripped
@@ -162,3 +162,29 @@ async def test_token_manager_serializes_concurrent_refreshes(session):
         results = await asyncio.gather(*(tm.access_token() for _ in range(5)))
         assert results == ["AT1"] * 5
         assert len(calls(m, "POST", re.compile(re.escape(TOKEN_URL)))) == 1
+
+
+async def test_token_manager_reports_idle_time_when_session_is_gone(session):
+    async def persist(tok):
+        pass
+
+    with aioresponses() as m:
+        m.post(TOKEN_URL, status=400, payload={"error": "invalid_grant", "error_description": "Offline user session not found"})
+        tm = TokenManager(session, "RT-A", persist, last_refresh=time.time() - 3 * 3600)
+        with pytest.raises(ReauthRequired, match=r"Offline user session not found.*idle for 3\.0 h"):
+            await tm.access_token()
+
+
+def test_refresh_token_expiry_from_jwt():
+    import base64
+    import json
+
+    from ckw_client import refresh_token_expiry
+
+    def jwt(claims):
+        b = lambda d: base64.urlsafe_b64encode(json.dumps(d).encode()).decode().rstrip("=")  # noqa: E731
+        return f"{b({'alg': 'none'})}.{b(claims)}.sig"
+
+    assert refresh_token_expiry(jwt({"exp": 1796000000, "typ": "Refresh"})) == 1796000000.0
+    assert refresh_token_expiry(jwt({"typ": "Offline"})) is None  # offline tokens have no deadline
+    assert refresh_token_expiry("not-a-jwt") is None

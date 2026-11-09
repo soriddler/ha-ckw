@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import date, datetime, timedelta
 
 from homeassistant.config_entries import ConfigEntry
@@ -32,6 +32,7 @@ from .const import (
     DOMAIN,
     MAX_RETRIES,
     OVERLAP_DAYS,
+    RENEW_LOGIN_BEFORE,
     REQUEST_PAUSE,
     RETRY_ON_ERROR,
     RETRY_ON_STALE,
@@ -65,6 +66,7 @@ class CkwData:
     month_peak_at: datetime | None
     month_power_charge_chf: float | None
     last_data: datetime | None
+    login_expires: datetime | None = None  # when the CKW login ends and a new SMS login is needed
 
 
 class CkwCoordinator(DataUpdateCoordinator[CkwData]):
@@ -171,6 +173,7 @@ class CkwCoordinator(DataUpdateCoordinator[CkwData]):
             if full:
                 _LOGGER.info("CKW: full import from %s to %s (this takes a while)", start, today)
             month_peaks, last_ms, last_hours = [], [], []
+            newest_day: date | None = None  # newest day with complete CSV hours (the JSON lags behind)
             # running totals handed from chunk to chunk; 0.0 = known to start from zero, None = read from the DB
             carry: dict[str, float | None] = {ENERGY: 0.0 if fresh else None, COST: 0.0 if fresh else None}
             for i, (c_start, c_end) in enumerate(chunks(start, today)):
@@ -192,6 +195,8 @@ class CkwCoordinator(DataUpdateCoordinator[CkwData]):
                     c_start, c_end, len(quarters), len(hours), len(cost_values(ms)), len(peak_rows(ms)),
                 )
                 month_peaks, last_ms, last_hours = peaks, ms, hours
+                if hours:
+                    newest_day = max(newest_day or date.min, local_date(hours[-1].start))
         except ReauthRequired as err:
             raise ConfigEntryAuthFailed(str(err)) from err
         except CannotConnect as err:
@@ -202,7 +207,15 @@ class CkwCoordinator(DataUpdateCoordinator[CkwData]):
             raise UpdateFailed(f"CKW returned unexpected data: {err}") from err
 
         data = self._build_data(last_ms, last_hours, month_peaks)
-        if data.day is None or data.day < today - timedelta(days=1):
+        expires = getattr(self.client, "session_expires_at", None)
+        if expires:
+            data = replace(data, login_expires=dt_util.utc_from_timestamp(expires))
+            if dt_util.utcnow() >= data.login_expires - RENEW_LOGIN_BEFORE:
+                # the deadline is fixed; log in again NOW (one SMS) so the data never stops
+                _LOGGER.warning("CKW login ends on %s; asking for a new login", data.login_expires.isoformat())
+                self.config_entry.async_start_reauth(self.hass)
+        latest = max(filter(None, (newest_day, data.day)), default=None)
+        if latest is None or latest < today - timedelta(days=1):
             self._schedule_retry(RETRY_ON_STALE, "newest data older than yesterday")
         else:
             self._attempts = 0

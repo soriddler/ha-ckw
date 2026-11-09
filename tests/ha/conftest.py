@@ -39,6 +39,7 @@ class FakeClient:
         self.calls = []
         self.error = None
         self.supply_start = None
+        self.session_expires_at = None
 
     async def contracts(self):
         return [Contract(LOC, "CH0000", "BASIC", "Musterstrasse 1", self.supply_start)]

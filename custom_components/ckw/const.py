@@ -7,6 +7,7 @@ MANUFACTURER = "CKW"
 CONF_USERNAME = "username"
 CONF_PASSWORD = "password"
 CONF_REFRESH_TOKEN = "refresh_token"
+CONF_REFRESHED_AT = "refreshed_at"  # epoch seconds of the last successful token refresh
 CONF_LOCATION_ID = "location_id"
 CONF_METER_GROUP_TYPE = "meter_group_type"
 CONF_METER_ID = "meter_id"
@@ -25,3 +26,5 @@ MAX_RETRIES = 5
 CONF_HISTORY_MONTHS = "history_months"  # how much history the first import loads; 0 = everything
 HISTORY_CHOICES = (1, 3, 12, 36)  # plus "everything since the start of the supply contract"
 SECONDS_PER_MONTH = 9  # measured: 13 months took about 2 minutes (two requests per month plus a pause)
+
+RENEW_LOGIN_BEFORE = timedelta(days=3)  # ask for the SMS re-login this long before the login deadline

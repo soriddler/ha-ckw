@@ -71,6 +71,9 @@
       },
       "last_data": {
         "name": "Letzte Daten"
+      },
+      "login_expires": {
+        "name": "Anmeldung gültig bis"
       }
     }
   },

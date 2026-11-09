@@ -329,3 +329,31 @@ async def test_history_service_ignores_the_setup_choice_and_loads_everything(has
     await hass.services.async_call(DOMAIN, "import_history", {}, blocking=True)
     await hass.async_block_till_done(wait_background_tasks=True)
     assert [c for c in patched_client.calls if c[0] == "csv"][0][1].isoformat() == "2026-07-01"
+
+
+async def test_no_retry_when_csv_is_current_even_if_json_lags(hass, entry, patched_client, quarters, freezer):
+    """Regression: the JSON only reached 7 Nov while the CSV had 8 Nov; a pointless 3 h retry then idled the
+    session until CKW deleted it."""
+    day8 = [replace(q, start=q.start + timedelta(days=1)) for q in quarters[-96:]]
+    patched_client.quarters = list(quarters) + day8
+    freezer.move_to("2026-11-09 08:00:00+01:00")
+    await setup(hass, entry)
+    assert entry.runtime_data.data.day.isoformat() == "2026-11-07"  # JSON still lags
+    assert entry.runtime_data._retry is None
+
+
+async def test_login_expiry_sensor_and_early_reauth(hass, entry, patched_client, freezer):
+    from datetime import datetime, timezone
+
+    from homeassistant.helpers import entity_registry as er  # noqa: F401
+
+    far = datetime(2026, 12, 8, 21, 7, tzinfo=timezone.utc)  # 30 days away: nothing to do yet
+    patched_client.session_expires_at = far.timestamp()
+    await setup(hass, entry)
+    assert state_of(hass, "login_expires").state.startswith("2026-12-08T21:07")
+    assert not hass.config_entries.flow.async_progress_by_handler(DOMAIN)
+
+    freezer.move_to("2026-12-06 02:00:00+01:00")  # 2 days before the deadline: inside the 3-day window
+    await entry.runtime_data.async_refresh()
+    await hass.async_block_till_done()
+    assert any(f["context"]["source"] == "reauth" for f in hass.config_entries.flow.async_progress_by_handler(DOMAIN))

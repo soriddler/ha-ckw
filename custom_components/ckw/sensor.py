@@ -72,6 +72,13 @@ SENSORS: tuple[CkwSensorDescription, ...] = (
         value=lambda d: d.month_power_charge_chf,
     ),
     CkwSensorDescription(
+        key="login_expires",
+        translation_key="login_expires",
+        device_class=SensorDeviceClass.TIMESTAMP,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        value=lambda d: d.login_expires,
+    ),
+    CkwSensorDescription(
         key="last_data",
         translation_key="last_data",
         device_class=SensorDeviceClass.TIMESTAMP,

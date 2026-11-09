@@ -9,8 +9,10 @@ Imports smart-meter data from the CKW customer portal (my.ckw.ch) once a day:
 * **Peak power** (kW, hourly maximum) as a statistic
 * Sensors: latest day's consumption / peak / cost, this month's peak and power charge, time of last data
 
-CKW has no public API. The integration logs in like the web portal does (password + SMS code) and then keeps the
-session alive with an OAuth *offline* token, so the SMS code is needed **only once** (and again only if CKW ends the session).
+CKW has no public API. The integration logs in like the web portal does (password + SMS code) and then refreshes the
+session daily without any SMS. CKW ends every login about **30 days** after the SMS code (a fixed deadline that refreshing
+cannot extend), so you need to enter a new SMS code roughly **once a month**. Home Assistant asks for it 3 days before the
+deadline (a *Repair* notification), so the data never stops; the sensor *Login valid until* shows the date.
 
 ## Install (Home Assistant OS)
 
@@ -57,9 +59,11 @@ The imported history is stored as **long-term statistics**, not as sensor histor
 CKW publishes data with about one day delay. Home Assistant fetches at 02:00 every day and re-reads the last 3 days to pick up
 corrections. If the newest data is older than yesterday it retries every 3 hours (max 5 times); on network errors every hour.
 
-## If the login expires
+## Monthly re-login
 
-Home Assistant shows a *Repair / re-authentication* notification. Confirm your password, enter the new SMS code. History is kept.
+3 days before the login ends, Home Assistant shows a re-authentication notification (*Settings → Devices & services → CKW*).
+Confirm your password and enter the new SMS code (*Send new code* if it did not arrive). History is kept.
+If you miss the deadline, the same notification appears and the missing days are fetched afterwards (CKW keeps the data).
 
 ## Privacy
 
@@ -73,3 +77,6 @@ docs/auth-findings.md         # how the portal login and API work (from browser 
 tools/probe_login.py          # live probe of the login flow
 tools/live_check.py           # smoke test of the library against the real portal
 ```
+
+### Limitation
+The login session expires after 30.4 days. The user needs to reauthenticat with an SMS code. Home Assistant will show a message informing about the expiring credentials.
