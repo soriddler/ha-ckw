@@ -69,3 +69,15 @@ Aggregations seen in the app: `FIFTEEN_MINUTES, HOUR, DAY, MONTH, YEAR`. Unteste
 - Full login with `--offline` works: token type `Offline`, no `exp`, `refresh_expires_in=0`; two further refreshes (immediate, +32 s) succeeded, tokens rotate each time, data API returns 200.
 - Still to observe: survival across days (offline idle timeout, typically 30 days since last use, reset by each refresh). Run `--refresh ~/.ckw_probe_offline.json` daily for a few days; a failure shows as `invalid_grant`.
 - Design decision: request `scope=openid offline_access`; refresh once per day; persist the rotated refresh token before using the new access token; on `invalid_grant` raise HA re-auth (password stored, only the SMS code is asked).
+
+## Offline sessions are deleted by CKW after a short idle time (2026-11-09)
+- Log: `invalid_grant: Offline user session not found` (session removed server-side, not a lost token).
+- Observed: session created 8 Nov ~13:00, last contact ~13:07, dead at 02:00 next day. A second session (09:05 9 Nov) was dead by the next contact 3 h later. Probe session (8 Nov) also dead after 24 h.
+- So the idle timeout is somewhere between minutes and ~3 h (earlier test: refreshes seconds apart worked). To be measured with `tools/probe_idle.py` (`--every 10` and `--escalate`).
+- Integration bug fixed: the stale-data retry used the JSON's last day (lags the CSV by a day) and scheduled a 3 h retry, which was the only contact all morning.
+
+## Decision (2026-11-09): use the normal (online) session, not offline_access
+- Offline sessions: deleted by CKW after a few idle hours (see above).
+- Online session (scope `openid`, what the browser portal uses): a probe session survived 24.7 h idle and refreshed fine; refresh token is a JWT with a fixed `exp` (~30.4 days after login, refreshing never extends it).
+- Therefore: scope `openid`, daily refresh, `TokenManager.session_expires_at` reads the deadline from the token, the integration starts a re-login (one SMS) 3 days before it and shows the sensor "Login valid until".
+- Still unmeasured: the online idle timeout beyond ~25 h (daily refresh uses 24 h gaps, so it needs to be > 24 h; verify over the next days with `probe_idle.py` or the real integration).

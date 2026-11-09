@@ -71,6 +71,9 @@
       },
       "last_data": {
         "name": "Dernières données"
+      },
+      "login_expires": {
+        "name": "Connexion valide jusqu'au"
       }
     }
   },

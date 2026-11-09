@@ -42,6 +42,18 @@ def _tokens(payload: dict) -> Tokens:
         raise LoginFlowError("token response has an unexpected structure") from err
 
 
+def refresh_token_expiry(token: str) -> float | None:
+    """Fixed deadline (epoch seconds) of a refresh token, read from its JWT 'exp' claim; None if it has none."""
+    import json
+
+    try:
+        part = token.split(".")[1]
+        exp = json.loads(base64.urlsafe_b64decode(part + "=" * (-len(part) % 4))).get("exp")
+        return float(exp) if exp else None
+    except (IndexError, ValueError, TypeError):
+        return None
+
+
 def _json(text: str) -> dict:
     import json
 
@@ -183,17 +195,33 @@ class TokenManager:
         refresh_token: str,
         on_refresh_token: Callable[[str], Awaitable[None]],
         tokens: Tokens | None = None,
+        last_refresh: float | None = None,
     ) -> None:
         self._session = session
         self._refresh_token = refresh_token
         self._on_refresh_token = on_refresh_token
         self._tokens = tokens
+        self.last_refresh = last_refresh  # epoch seconds of the last successful refresh (for diagnostics)
         self._lock = asyncio.Lock()
+
+    @property
+    def session_expires_at(self) -> float | None:
+        """When the login ends for good (a new SMS login is needed); None if unknown."""
+        return refresh_token_expiry(self._refresh_token)
 
     async def access_token(self, *, force_refresh: bool = False) -> str:
         async with self._lock:
             if force_refresh or self._tokens is None or self._tokens.expires_at - time.time() < 60:
-                new = await refresh_tokens(self._session, self._refresh_token)
+                try:
+                    new = await refresh_tokens(self._session, self._refresh_token)
+                except ReauthRequired as err:
+                    idle = (
+                        f"{(time.time() - self.last_refresh) / 3600:.1f} h"
+                        if self.last_refresh
+                        else "unknown time"
+                    )
+                    raise ReauthRequired(f"{err} (idle for {idle} since the last successful refresh)") from err
+                self.last_refresh = time.time()
                 if new.refresh_token != self._refresh_token:
                     await self._on_refresh_token(new.refresh_token)
                     self._refresh_token = new.refresh_token

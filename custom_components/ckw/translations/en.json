@@ -71,6 +71,9 @@
       },
       "last_data": {
         "name": "Last data"
+      },
+      "login_expires": {
+        "name": "Login valid until"
       }
     }
   },

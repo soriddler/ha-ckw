@@ -30,6 +30,10 @@ class CkwClient:
         self._tokens = tokens
         self._gpnr: str | None = None
 
+    @property
+    def session_expires_at(self) -> float | None:
+        return self._tokens.session_expires_at
+
     async def _call(self, method: str, path: str, *, json: dict | None = None, gpnr: bool = False) -> bytes:
         for attempt in (0, 1):
             headers = {
